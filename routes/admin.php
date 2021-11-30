@@ -36,4 +36,4 @@ Route::resource('agendas', AgendaController::class)->names('admin.agendas')->mid
 
 Route::resource('appointments', AppointmentController::class)->names('admin.appointments')->middleware('active');
 
-URL::forceScheme('https');
+// URL::forceScheme('https');

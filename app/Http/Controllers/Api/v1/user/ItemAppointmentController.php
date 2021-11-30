@@ -47,14 +47,16 @@ class ItemAppointmentController extends Controller
         for ($i=0; $i < sizeof($appointments) ; $i++) {
             
             $appointment_hour_end = date('H:i:s', strtotime($appointments[$i]['hour'].'+'.$appointments[$i]['duration'].' minute'));
-            
-            if (  ($appointment_hour_end > date('H:i:s') ) && ( $appointments[$i]['date'] === date('Y-m-d') ) ) {
+            // $appointment_hour_end = strtotime($appointment_hour_end);
+            return $appointment_hour_end;
+            // return $appointment_hour_end;
+            if ( ( ( $appointment_hour_end > date('H:i:s') ) && ( $appointments[$i]['date'] === date('Y-m-d') ) ) || ( $appointments[$i]['date'] > date('Y-m-d') ) ) {
                 $sum[$i] = $appointments[$i];
                 if ( $appointments[$i]['start_hour'] === '07:00:00' ) {
                     if ( $appointment_hour_end < $appointments[$i]['end_hour'] ) {
-                        $agenda_end_hour = $appointments[$i]['end_hour'];
-                        // $freeright[$i] = $agenda_end_hour;
-                        $freeright[$i] = date('i', strtotime($agenda_end_hour." - $appointment_hour_end minute"));
+                        // return date('h:i:s',$appointment_hour_end);
+                        $agenda_hour_end = $appointments[$i]['end_hour'];
+                        $freeright[$i] = date('H:i:s', strtotime($agenda_hour_end."- $appointment_hour_end second"));
                     }
                 }
             }
